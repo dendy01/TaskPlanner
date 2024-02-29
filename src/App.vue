@@ -1,30 +1,48 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container">
+    <AddTask :text="text" @add="addTask"></AddTask>
+    <TaskList :tasks="tasks"></TaskList>
+  </div>
 </template>
 
+<script>
+  import AddTask from '@/components/AddTask.vue'
+  import TaskList from '@/components/TaskList.vue'
+
+  export default {
+    components: {
+      AddTask,
+      TaskList
+    },
+
+    data() {
+      return {
+        tasks: [
+          { id: 1, text: 'Learn Vue.js 3' },
+        ],
+        text: ''
+      }
+    },
+
+    methods: {
+      addTask(task) {
+        this.tasks.push(task);
+      },
+    }
+  }
+</script>
+  
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
 </style>
